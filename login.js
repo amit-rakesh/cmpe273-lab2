@@ -12,7 +12,29 @@ function Login() {
  * Say Hello {name} to the user
  */
 Login.prototype.hello = function(sessionId) {
-	return 'Hello ' + this.sessionMap[sessionId].name + '\n';
+	//return 'Hello ' + this.sessionMap[sessionId].name + '\n';
+       if(this.sessionMap[sessionId]==null)
+{
+	
+	return 'Please Login.!';
+}
+else
+{
+	return 'Hello, ' + this.sessionMap[sessionId].name;
+}
+};
+
+Login.prototype.getName = function(sessionId)
+{
+ return this.sessionMap[sessionId].name;
+};
+
+/**
+ * Get Current Session id user email 
+ */
+Login.prototype.getEmail = function(sessionId)
+{
+ return this.sessionMap[sessionId].email;
 };
 
 /**
@@ -37,11 +59,23 @@ Login.prototype.login = function(_name, _email) {
 	return sessionId;
 };
 
+
+
+Login.prototype.RefreshSession = function(_sessionId)
+{
+	// Delete the session id from sessionMap 
+	delete this.sessionMap[_sessionId];
+	return "done";
+};
+
+
 /**
  * Logout from the server
  */ 
 Login.prototype.logout = function(sessionId) {
 	console.log('logout::' + sessionId);
+
+       delete this.sessionMap[sessionId];
    /*
 	* TODO: Remove the given sessionId from the sessionMap
 	*/
